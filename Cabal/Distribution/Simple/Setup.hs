@@ -1376,6 +1376,7 @@ data HaddockFlags = HaddockFlags {
     haddockInternal     :: Flag Bool,
     haddockCss          :: Flag FilePath,
     haddockLinkedSource :: Flag Bool,
+    haddockQuickJump    :: Flag Bool,
     haddockHscolourCss  :: Flag FilePath,
     haddockContents     :: Flag PathTemplate,
     haddockDistPref     :: Flag FilePath,
@@ -1401,6 +1402,7 @@ defaultHaddockFlags  = HaddockFlags {
     haddockInternal     = Flag False,
     haddockCss          = NoFlag,
     haddockLinkedSource = Flag False,
+    haddockQuickJump    = Flag False,
     haddockHscolourCss  = NoFlag,
     haddockContents     = NoFlag,
     haddockDistPref     = NoFlag,
@@ -1516,6 +1518,11 @@ haddockOptions showOrParseArgs =
   ,option "" ["hyperlink-source","hyperlink-sources","hyperlinked-source"]
    "Hyperlink the documentation to the source code"
    haddockLinkedSource (\v flags -> flags { haddockLinkedSource = v })
+   trueArg
+
+  ,option "" ["quickjump"]
+   "Generate an index for interactive documentation navigation"
+   haddockQuickJump (\v flags -> flags { haddockQuickJump = v })
    trueArg
 
   ,option "" ["hscolour-css"]
